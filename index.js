@@ -20,8 +20,6 @@ conn.connect()
     .then(() => {
         console.log("Conectado ao PostgreSQL");
         initBanco();
-        inserirPessoa('Pedro Henrique');
-        inserirUsuario('José Juca', 'josejuca@email.com');
     })
     .catch(err => console.error("Erro de conexão", err));
 
