@@ -11,7 +11,7 @@ app.use(express.static('public'));
 const conn = new Pool({
     host:"localhost",
     user:"postgres",
-    password:"1234",
+    password:"admin",
     database:"postgres",
     port: 5432,
 });
@@ -37,7 +37,6 @@ function initBanco(){
         ];
 
        queries.forEach(query => {
-        console.log(query);
         try{
             conn.query(query);
             console.log('Tabelas criadas com sucesso!')
