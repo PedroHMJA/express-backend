@@ -5,13 +5,15 @@ const {Pool} = require("pg");
 
 
 const app = express();
+
 app.use(express.static('public'));
+app.use(express.json());
 
 
 const conn = new Pool({
     host:"localhost",
     user:"postgres",
-    password:"admin",
+    password:"1234",
     database:"postgres",
     port: 5432,
 });
@@ -87,6 +89,14 @@ app.get('/usuarios', async (req,res) =>{
     console.log(resposta);
     res.send(resposta);
 })
+
+app.post('/inserirUsuario', async (req, res) =>{
+    const usuario = req.body;
+    await inserirUsuario(usuario.nome, usuario.email);
+
+    res.send({message: 'Usuario adicionado com sucesso!'})
+})
+
 
 app.listen(3000, () => {
     console.log("Servidor rodando na porta 3000");
