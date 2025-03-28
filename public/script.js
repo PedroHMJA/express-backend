@@ -13,19 +13,20 @@ function buscarPessoa(){
         });
 }
 
-function inserirUsuario(){
-
+function addUsuario() {
     const usuario = {
         nome: document.getElementById('name1').value,
         email: document.getElementById('email1').value,
-    }
-    
+    };
 
     fetch('http://localhost:3000/inserirUsuario', {
         method: 'POST',
-        body: JSON.stringify({ usuario })
+        headers: {
+            'Content-Type': 'application/json' // Definindo o tipo de conteúdo como JSON
+        },
+        body: JSON.stringify(usuario) //Enviando o objeto `usuario` diretamente
     })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error('Erro ao inserir usuario:', error));
+    .then(response => response.json())
+    .then(data => console.log(data)) // Aqui você pode tratar a resposta do backend
+    .catch(error => console.error('Erro ao inserir usuario:', error)); // Em caso de erro
 }

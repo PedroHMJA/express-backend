@@ -78,6 +78,11 @@ async function buscarUsuarios() {
     return rows;
 }
 
+async function buscaUsuarioId(id){
+    const {row} = await conn.query(`select * from usuario where id ==${id}`);
+    return row;
+}
+
 app.get('/pessoas', async (req,res) =>{
     let resposta = await buscarPessoas();
     console.log(resposta);
@@ -90,14 +95,22 @@ app.get('/usuarios', async (req,res) =>{
     res.send(resposta);
 })
 
+app.get('/usuarios/:id', async (req, res) =>{
+    const { id } = req.params
+    result =  await buscaUsuarioId(id);
+    res.send(result);
+})
+
 app.post('/inserirUsuario', async (req, res) =>{
-    const usuario = req.body;
-    await inserirUsuario(usuario.nome, usuario.email);
+    const { nome, email } = req.body;
+
+    await inserirUsuario(nome, email);
+    
 
     res.send({message: 'Usuario adicionado com sucesso!'})
 })
 
 
 app.listen(3000, () => {
-    console.log("Servidor rodando na porta 3000");
+    console.log("Servidor rodando na porta 3000, http://localhost:3000/");
 });
