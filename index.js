@@ -13,7 +13,7 @@ app.use(express.json());
 const conn = new Pool({
     host:"localhost",
     user:"postgres",
-    password:"1234",
+    password:"admin",
     database:"postgres",
     port: 5432,
 });
@@ -79,8 +79,17 @@ async function buscarUsuarios() {
 }
 
 async function buscaUsuarioId(id){
-    const {row} = await conn.query(`select * from usuario where id ==${id}`);
-    return row;
+    const {rows} = await conn.query(`select * from usuario where id = ${id}`);
+    return rows;
+}
+async function atualizaUsuario(id, nome, email){
+    try {
+        await conn.query('update usuario set nome = $1, email = $2 where id = $3',[nome, email, id]);
+        console.log(`Usuario ${id} atualizado com sucesso`);
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
 app.get('/pessoas', async (req,res) =>{
@@ -95,21 +104,25 @@ app.get('/usuarios', async (req,res) =>{
     res.send(resposta);
 })
 
+//busca usuario por id
 app.get('/usuarios/:id', async (req, res) =>{
-    const { id } = req.params
-    result =  await buscaUsuarioId(id);
+    let id = req.params.id;
+    let result =  await buscaUsuarioId(id);
     res.send(result);
 })
 
+//insere um novo usuario
 app.post('/inserirUsuario', async (req, res) =>{
     const { nome, email } = req.body;
-
     await inserirUsuario(nome, email);
-    
-
     res.send({message: 'Usuario adicionado com sucesso!'})
 })
-
+//atualiza um usuario ja existente
+app.put('/atualizarUsuario/:id', async (req, res) => {
+    const id = req.params.id;
+    await atualizaUsuario(id, req.body.nome, req.body.email);
+    res.send({message:"Usuario atualizado com sucesso"});
+})
 
 app.listen(3000, () => {
     console.log("Servidor rodando na porta 3000, http://localhost:3000/");
