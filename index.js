@@ -61,7 +61,7 @@ async function inserirPessoa(nome){
 async function inserirUsuario(nome, email){
     try{
         await conn.query('insert into usuario(nome,email) values($1,$2)', [nome,email]);
-        console.log(`Usuario ${nome}, com o email: ${email}. Inserido com sucesso.`)
+        console.log('Usuario inserido com sucesso.')
 
     }catch(error){
         console.error(error);
@@ -72,12 +72,11 @@ async function buscarPessoas() {
     const {rows} = await conn.query('select * from pessoa');
     return rows;
 }
-
+//querys na tabela usuario
 async function buscarUsuarios() {
     const {rows} = await conn.query('select * from usuario');
     return rows;
 }
-
 async function buscaUsuarioId(id){
     const {rows} = await conn.query(`select * from usuario where id = ${id}`);
     return rows;
@@ -91,6 +90,15 @@ async function atualizaUsuario(id, nome, email){
     }
 
 }
+async function deletaUsuario(id){
+    try {
+        await conn.query(`delete from usuario where id = ${id}`);
+        console.log("Usuario deletado com sucesso");
+    } catch (error) {
+        console.error(error);
+        console.log("Erro ao deletar usuario");
+    }
+}
 
 app.get('/pessoas', async (req,res) =>{
     let resposta = await buscarPessoas();
@@ -100,7 +108,6 @@ app.get('/pessoas', async (req,res) =>{
 
 app.get('/usuarios', async (req,res) =>{
     let resposta = await buscarUsuarios();
-    console.log(resposta);
     res.send(resposta);
 })
 
@@ -122,6 +129,12 @@ app.put('/atualizarUsuario/:id', async (req, res) => {
     const id = req.params.id;
     await atualizaUsuario(id, req.body.nome, req.body.email);
     res.send({message:"Usuario atualizado com sucesso"});
+})
+//deleta um usuario
+app.delete('/deletarUsuario/:id', async (req,res) =>{
+    const id = req.params.id;
+    await deletaUsuario(id);
+    res.send({message:"Usuario deletado com sucesso"});
 })
 
 app.listen(3000, () => {

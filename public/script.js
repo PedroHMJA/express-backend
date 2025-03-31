@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 function buscarPessoa(){
 
     var url = '/pessoas';
@@ -13,6 +11,7 @@ function buscarPessoa(){
         });
 }
 
+//função da pagina web
 function addUsuario() {
     const usuario = {
         nome: document.getElementById('name1').value,
