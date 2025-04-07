@@ -8,7 +8,7 @@ app.use(express.json());
 const conn = new Pool({
     host:"localhost",
     user:"postgres",
-    password:"1234",
+    password:"admin",
     database:"postgres",
     port: 5432,
 });
@@ -129,7 +129,6 @@ async function deletaUsuario(id){
 
 app.get('/pessoas', async (req,res) =>{
     let resposta = await buscarPessoas();
-    console.log(resposta);
     res.send(resposta);
 })
 

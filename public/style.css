@@ -29,7 +29,7 @@ body{
     font-weight: 500;
     font-style: normal;
     color: #ffff;
-    font-size: x-large;
+    font-size: large;
 }
 
 header{
@@ -43,7 +43,7 @@ header{
 }
 
 .coluna1{
-    width: inherit;
+    width: 400px;
     height: auto;
 
     display: flex;
@@ -57,7 +57,7 @@ header{
 }
 
 .coluna2{
-    width: inherit;
+    width: 400px;
     height: auto;
 
     display: flex;
@@ -92,8 +92,9 @@ header{
 }
 
 .button{
-    width: 75px;
+    width: 70px;
     height: 30px;
+    padding: 3px;
 
     cursor: pointer;
     background-color:dodgerblue;
@@ -106,7 +107,6 @@ header{
     font-style: normal;
     color: #ffff;
 
-    margin-left: 117.5px;
 
 }
 
@@ -123,7 +123,11 @@ th, td{
     padding-right: 50px;
 }
 
-
+.botoes{
+    width: 310px;
+    display: flex;
+    justify-content: space-between;
+}
 
 
 #tittle-pessoas{

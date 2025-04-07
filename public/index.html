@@ -16,29 +16,45 @@
 
         <div class="coluna1">
             <form action="" class="form">
+                <label for="id1">Id (Caso o usuário já exista.)</label>
+                <input id="id1" type="number" class="inputs">
+
                 <label for="name1">Nome do usuário</label>
                 <input id="name1" type="text" class="inputs">
                 
                 <label for="email1">Email</label>
                 <input id="email1" type="text" class="inputs">
-                <button type="button" class="button" onclick="(addUsuario())">Inserir</button>
             </form>
-        </div>
+            <div class="botoes">
+                <button type="button" class="button" onclick="(addUsuario())">Inserir</button>
+                <button type="button" class="button" onclick="(buscaUsuario())">Buscar</button>
+                <button type="button" class="button" onclick="(attUsuario())">Atualizar</button>
+                <button type="button" class="button" onclick="(deleteUsuario())">Deletar</button>
         
+            </div>
+        </div>
         
         
         <div class="coluna2">
             <form action="" class="form">
+                <label for="id2">Id (Caso a pessoa já exista.)</label>
+                <input id="id2" type="number" class="inputs">
+
                 <label for="inp2">Nome da pessoa</label>
                 <input id="inp2"type="text" class="inputs">
-                <button type="button" class="button">Inserir</button>
             </form>
+            <div class="botoes">
+                <button type="button" class="button" onclick="(addPessoa())">Inserir</button>
+                <button type="button" class="button" onclick="(buscaPessoa())">Buscar</button>
+                <button type="button" class="button" onclick="(attPessoa())">Atualizar</button>
+                <button type="button" class="button" onclick="(deletePessoa())">Deletar</button>
+            </div>
         </div>
 
         
 
     </div>
-
+    <div id="message"></div>
     <footer>
     </footer>
     <script src="./script.js"></script>
