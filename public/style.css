@@ -133,3 +133,18 @@ th, td{
 #tittle-pessoas{
     margin-top: 93px;
 }
+
+
+.mensagem {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+.sucesso {
+    background-color: green;
+}
+.falha {
+    background-color: red;
+}

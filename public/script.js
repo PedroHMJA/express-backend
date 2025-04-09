@@ -1,3 +1,22 @@
+function flashMessage(tipo, mensagem){
+    const container = document.getElementById('message');
+    const message = document.createElement('div');
+
+    message.classList.add('mensagem');
+    if(tipo === 'sucesso'){
+        message.classList.add('sucesso');
+    } else if (tipo === 'falha'){
+        message.classList.add('falha');
+    }
+
+    message.textContent = mensagem;
+    container.appendChild(message);
+
+    setTimeout(() => {
+        container.removeChild(message);
+    }, 3000);
+}
+
 
 function buscaPessoa(){
     const id = document.getElementById('id2').value;
@@ -26,8 +45,15 @@ function addPessoa(){
         })
         .then(response => response.json())
         .then(data => console.log(data))
-        .catch(error => console.error('Erro ao inserir pessoa', error))
-        
+        .then(Response => {
+            Response.ok;
+            flashMessage('sucesso', res.json())
+        })
+        .catch(error => {
+            console.error('Erro ao inserir pessoa', error);
+            flashMessage('falha', error.message);
+        })
+        .
         document.getElementById('id2').value = "";
         document.getElementById('inp2').value = "";
 }
