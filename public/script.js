@@ -32,30 +32,27 @@ function buscaPessoa(){
         document.getElementById('inp2').value = "";
 }
 
-function addPessoa(){
+async function addPessoa(){
     const pessoa = {
         nome: document.getElementById('inp2').value,
     };
-    fetch('http://localhost:3000/inserirPessoa',{
-           method: 'POST',
-           headers : {
+    try {
+        let resposta = await fetch('http://localhost:3000/inserirPessoa',{
+            method: 'POST',
+            headers : {
             'Content-Type':'application/json'
-           },
-           body: JSON.stringify(pessoa)
-        })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .then(Response => {
-            Response.ok;
-            flashMessage('sucesso', res.json())
-        })
-        .catch(error => {
-            console.error('Erro ao inserir pessoa', error);
-            flashMessage('falha', error.message);
-        })
-        .
-        document.getElementById('id2').value = "";
-        document.getElementById('inp2').value = "";
+            },
+            body: JSON.stringify(pessoa)
+        });
+        let dados = await resposta.json();
+        flashMessage('sucesso', dados.message);
+    } catch (error) {
+        flashMessage('falha', 'Algo deu errado')
+    }
+
+
+    document.getElementById('id2').value = "";
+    document.getElementById('inp2').value = "";
 }
 
 function attPessoa(){
