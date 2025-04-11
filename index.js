@@ -8,7 +8,7 @@ app.use(express.json());
 const conn = new Pool({
     host:"localhost",
     user:"postgres",
-    password:"1234",
+    password:"admin",
     database:"postgres",
     port: 5432,
 });
@@ -160,9 +160,9 @@ app.get('/usuarios', async (req,res) =>{
 
 //busca usuario por id
 app.get('/usuarios/:id', async (req, res) =>{
-    let id = req.params.id;
-    let result =  await buscaUsuarioId(id);
-    res.send(result);
+    const id = req.params.id;
+    res.send(await buscaUsuarioId(id));
+   
 })
 
 //insere um novo usuario
