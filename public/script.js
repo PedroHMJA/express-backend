@@ -270,3 +270,45 @@ async function deleteUsuario(){
 
     document.getElementById('id1').value = "";
 }
+
+async function carregarDadosUsuarios() {
+    try {
+      const resposta = await fetch('http://localhost:3000/usuarios');
+      const dados = await resposta.json();
+
+      const tabela = document.getElementById('apiTable').getElementsByTagName('tbody')[0];
+
+      dados.forEach(item => {
+        const linha = tabela.insertRow();
+        const celulaId = linha.insertCell(0);
+        const celulaNome = linha.insertCell(1);
+        const celulaEmail = linha.insertCell(2);
+
+        celulaId.innerText = item.id;
+        celulaNome.innerText = item.nome;
+        celulaEmail.innerText = item.email;
+      });
+    } catch (erro) {
+      console.error('Erro ao carregar dados:', erro);
+    }
+  }
+  async function carregarDadosPessoas() {
+    try {
+      const resposta = await fetch('http://localhost:3000/pessoas');
+      const dados = await resposta.json();
+
+      const tabela = document.getElementById('apiTable').getElementsByTagName('tbody')[0];
+
+      dados.forEach(item => {
+        const linha = tabela.insertRow();
+        const celulaId = linha.insertCell(0);
+        const celulaNome = linha.insertCell(1);
+
+        celulaId.innerText = item.id;
+        celulaNome.innerText = item.nome;
+
+      });
+    } catch (erro) {
+      console.error('Erro ao carregar dados:', erro);
+    }
+  }
