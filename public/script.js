@@ -17,7 +17,6 @@ function flashMessage(tipo, mensagem){
     }, 3000);
 }
 
-
 async function buscaPessoa(){
     const id = document.getElementById('id2').value;
     
@@ -68,7 +67,7 @@ async function addPessoa(){
         flashMessage('falha', 'Algo deu errado')
     }
 
-    document.getElementById('id2').value = "";
+    document.getElementById('inp2').value = "";
 }
 
 async function attPessoa(){
@@ -312,3 +311,59 @@ async function carregarDadosUsuarios() {
       console.error('Erro ao carregar dados:', erro);
     }
   }
+  async function carregarDadoUnicoUsuario() {
+    try {
+      const idUsuario = localStorage.getItem('idUsuario');
+      console.log(idUsuario);
+      const resposta = await fetch(`http://localhost:3000/usuarios/${idUsuario}`);
+      const dados = await resposta.json();
+      console.log(dados)
+      const tabela = document.getElementById('apiTable').getElementsByTagName('tbody')[0];
+
+      dados.forEach(item => {
+        const linha = tabela.insertRow();
+        const celulaId = linha.insertCell(0);
+        const celulaNome = linha.insertCell(1);
+        const celulaEmail = linha.insertCell(2);
+
+        celulaId.innerText = item.id;
+        celulaNome.innerText = item.nome;
+        celulaEmail.innerText = item.email;
+      });
+      localStorage.clear();
+    } catch (erro) {
+      console.error('Erro ao carregar dados:', erro);
+      localStorage.clear();
+    }
+    
+  }
+  async function carregarDadoUnicoPessoa() {
+    try {
+      const idPessoa = localStorage.getItem('idPessoa');
+      const resposta = await fetch(`http://localhost:3000/pessoas/${idPessoa}`);
+      const dados = await resposta.json();
+
+      const tabela = document.getElementById('apiTable').getElementsByTagName('tbody')[0];
+
+      dados.forEach(item => {
+        const linha = tabela.insertRow();
+        const celulaId = linha.insertCell(0);
+        const celulaNome = linha.insertCell(1);
+
+        celulaId.innerText = item.id;
+        celulaNome.innerText = item.nome;
+
+      });
+    } catch (erro) {
+      console.error('Erro ao carregar dados:', erro);
+    }
+    localStorage.clear();
+  }
+
+
+function armazenaId(){
+    const idUsuario = document.getElementById('id1').value;
+    const idPessoa = document.getElementById('id2').value;
+    localStorage.setItem('idUsuario', idUsuario);
+    localStorage.setItem('idPessoa', idPessoa);
+}

@@ -1,9 +1,13 @@
 const express = require("express");
 const {Pool} = require("pg");
-
+const cors = require('cors');
 const app = express();
+
 app.use(express.static('public'));
 app.use(express.json());
+//cors é um mecanismo de segurança dos navegadores que restringem o acesso de dominios não autorizados à
+// recursos do backend
+app.use(cors());
 
 const conn = new Pool({
     host:"localhost",
@@ -56,7 +60,7 @@ async function buscarPessoas() {
     } catch (error) {
         console.error(error);
     }
-    const {rows} = await conn.query('select * from pessoa');
+    const {rows} = await conn.query('select * from pessoa order by id asc');
     return rows;
 }
 async function buscarPessoaId(id){
@@ -96,8 +100,12 @@ async function inserirUsuario(nome, email){
     }
 }
 async function buscarUsuarios() {
-    const {rows} = await conn.query('select * from usuario');
-    return rows;
+    try {
+        const {rows} = await conn.query('select * from usuario order by id asc');
+        return rows;
+    } catch (error) {
+        console.error(error);
+    }
 }
 async function buscaUsuarioId(id){
     try {
